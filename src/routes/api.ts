@@ -1,14 +1,13 @@
 import { Router } from 'express';
+import multer from 'multer';
+import * as UploadFilesControler from '../controllers/uploadFiles.controller';
 
-import * as TodoController from '../controllers/todo.controller';
+const upload = multer({
+    dest: './tmp'
+});
 
 const router = Router();
 
-//#region Todo Routes
-router.get('/todo', TodoController.all);
-router.post('/todo', TodoController.add);
-router.put('/todo/:id', TodoController.update);
-router.delete('/todo/:id', TodoController.remove);
-//#endregion
+router.post('/upload', upload.single('avatar'), UploadFilesControler.uploadFile);
 
 export default router;
